@@ -6,6 +6,31 @@
 
 .form-control-brdr
 {
-    border: 1px solid #858793 0rem !important;
+    border: 1px solid #858793 0rem;
     border-radius: 0rem !important;
+}
+.loader {
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    color:red;
+    z-index: 9999;
+    background: #fafafa url('../img/loading.gif') no-repeat center center;
+    text-align: center;
+    color: #999;
+}
+
+.listbtn{
+    position: relative;
+    left: 52rem;
+    top: -20px;
+}
+
+.msg_error{
+    color: red;
+    margin-left: 3rem;
+    margin-bottom: 1rem;
 }

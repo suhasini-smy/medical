@@ -17,11 +17,21 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    public $timestamps = false;
+    protected $table = 'users';
+
     protected $fillable = [
-        'name',
+        'f_name',
         'email',
+        'l_name',
         'password',
-    ];
+      ];
+
+      public function setPasswordAttribute($value)
+    {
+     $this->attributes['password'] = bcrypt($value);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -30,7 +40,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
     /**

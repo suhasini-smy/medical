@@ -61,45 +61,7 @@
 
       $(() => {
 
-          $("#submitButton").click(function(ev) {
-
-            $("#petient_fname_error,#petient_lname_error,#petient_dob_error,#patient_gender_error,#category_id_error,#patient_number_error").css('display','none');
-              ev.preventDefault();
-              var form = $("#insert-petient");
-              var url = form.attr('action');
-
-              $.ajax({
-                  type: "POST",
-                  url: url,
-                  data: form.serialize(),
-                  success: function(data) {
-                      alert("Form Submited Successfully");
-                  },
-                  error: function(data)
-                  {
-                        if( data.status === 422 ) {
-                            var errors = $.parseJSON(data.responseText);
-                            $.each(errors.errors, function (key, val)
-                            {
-                                   if(key)
-                                   {
-                                    var k =  key + "_error";
-                                    console.log(k);
-                                    $("<label class="+k+" id="+k+"></label>").insertAfter("#"+key);
-                                    $("#" +k).css('display','block');
-                                    $("#" +k).text(val);
-                                    $("#" +k).css('color','red');
-                                    $('.mandatory').css('color','black');
-                                   }
-
-                            });
-                        }
-
-                  }
-              });
-          });
-
-        $( "#petient_dob" ).datepicker({
+        $( "#patient_dob" ).datepicker({
                 dateFormat: 'dd-mm-yy',
                 changeMonth: true,
                 changeYear: true,
@@ -110,6 +72,8 @@
                     console.log( $('#alternate').val() );
                 }
             });
+
+
       });
 
 

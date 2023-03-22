@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PetientController;
-
+use App\Http\Controllers\patientController;
+use App\Http\Controllers\MainController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,24 +14,42 @@ use App\Http\Controllers\PetientController;
 |
 */
 
-Route::get('/crm-login', function () {
-    return view('users.login');
-});
-
-
 Route::any('/', function () {
     return redirect('crm-login');
 });
 
-/*Route::get('/dashboard', function ()
+Route::get('forgot-password',  [MainController::class,'forgotPassword']);
+Route::post('send-reset-password-mail',  [MainController::class,'resetPassword']);
+
+/**
+ * Login Routes
+ */
+Route::get('/crm-login', [MainController::class,'showLogin'])->name('crm-login');
+Route::post('/do-login',  [MainController::class,'doLogin'])->name('do-login');
+Route::get('/register', [MainController::class,'openRegisterForm'])->name('register');
+Route::post('/register', [MainController::class,'register'])->name('register');
+
+Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
-    return view('dashboard');
-});*/
+    /**
+     * Home Routes
+     */
 
-Route::get('/dashboard',[PetientController::class,'index']);
+    Route::group(['middleware' => ['web']], function()
+    {
 
-Route::get('/open-petient-form',[PetientController::class,'create']);
-Route::post('/insert-petient-data',[PetientController::class,'store']);
+    });
 
+    Route::group(['middleware' => ['auth']], function() {
+        Route::get('/dashboard',[patientController::class,'index']);
+        Route::get('/get_patient_data/{id}',[patientController::class,'show']);
+        Route::post('/get_patient_data/:id',[patientController::class,'show']);
+        Route::get('/open-patient-form',[patientController::class,'create']);
+        Route::post('/insert-patient-data',[patientController::class,'store']);
+
+        Route::post('/update-patient-details/{id}',[patientController::class,'update']);
+        Route::get('logout', [MainController::class,'doLogout'])->name('logout');
+    });
+});
 
 
