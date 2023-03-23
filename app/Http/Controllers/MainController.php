@@ -95,14 +95,14 @@ class MainController extends Controller
         [
             'email.required' => 'Email field is required.'
         ]);
-        $email = $request->email;
+        $u_email=$request->email;
 
-        $email= array('email'=>$email);
+        $email= array('email'=>$u_email);
         $get = User::whereIn('email', $email)->get()->toArray();
         if($get)
         {
-            $sender_name=$get[0]['user_fname'];
-            $user_lname=$get[0]['user_lname'];
+            $sender_name=$get[0]['f_name'];
+            $user_lname=$get[0]['l_name'];
             $sender_address="xyz@gmail.com";//from address i.e sswebhelps@gmail.com
             $subject = NULL;
 
@@ -119,7 +119,7 @@ class MainController extends Controller
                                 <th>Name:</th><td>'.$sender_name.'-'.$user_lname.'</td>
                             </tr>
                             <tr style="background-color: #e0e0e0;">
-                                <th>Email:</th><td>'.$email.'</td>
+                                <th>Email:</th><td>'.$u_email.'</td>
                             </tr>
                             <tr>
                                 <th>Set Password link:</th><td><a href="'.$sePasswordlink.'">Reset Password</a></td>
@@ -142,7 +142,7 @@ class MainController extends Controller
 
         }else
         {
-           return response()->json(['errors' => array('email'=>'please enter valida email')],422);
+           return response()->json(['errors' => array('msg'=>'please enter valida email')],422);
         }
 
     }

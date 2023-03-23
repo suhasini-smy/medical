@@ -9,6 +9,7 @@
         </div>
         <div class="modal-body">
             <div id="msg_error" class="msg_error"></div>
+
         <form id="patient_update_form" action="{{ url('update-patient-details') }}" method="POST" name="patient_update_form" class="form-horizontal">
                <input type="hidden" name="patient_id" id="patient_id">
                 <div class="form-group">

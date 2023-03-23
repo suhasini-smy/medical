@@ -53,7 +53,7 @@
                                        {{ csrf_field() }}
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                                id="user_email" name="user_email" aria-describedby="emailHelp"
+                                                id="email" name="email" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <a href="#" id="resetPassword" class="btn btn-primary btn-user btn-block">
