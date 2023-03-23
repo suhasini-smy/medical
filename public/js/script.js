@@ -27,8 +27,10 @@ $(document).ready(function() {
              },
              error: function(data)
              {
-                    $('.loader').hide();
-                   if( data.status === 422 ) {
+                $('.loader').hide();
+                   if( data.status === 422 )
+                   {
+
                        var errors = $.parseJSON(data.responseText);
                        $.each(errors.errors, function (key, val)
                        {
@@ -58,7 +60,7 @@ $(document).ready(function() {
 
 
         $("#submitPatientDetails").click(function(ev) {
-          $('.loader').show();
+         // $('.loader').show();
           $('#submitPatientDetails').attr('disabled','disabled');
 
           $("#patient_fname_error,#patient_lname_error,#patient_dob_error,#patient_gender_error,#category_id_error,#patient_number_error").remove();
@@ -113,7 +115,7 @@ $(document).ready(function() {
 
 
     $("#resetPassword").click(function(ev) {
-        $('.loader').show();
+       // $('.loader').show();
         $(this).attr('disabled',true);
 
         $("#email_error").remove();
@@ -173,7 +175,7 @@ $(document).ready(function() {
 
 
       $("#submitLoginForm").click(function(ev) {
-        $('.loader').show();
+       /// $('.loader').show();
         $(this).attr('disabled',true);
 
         $("#email_error,#password_error").remove();
@@ -246,7 +248,7 @@ $(document).ready(function() {
 
 
       $("#update_patient_details").click(function(ev) {
-        $('.loader').show();
+       // $('.loader').show();
 
         $("#visited_date_error,#next_visit_date_error,#is_active_error").remove();
           ev.preventDefault();
