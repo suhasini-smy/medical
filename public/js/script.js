@@ -195,7 +195,7 @@ $(document).ready(function() {
                 {
                     console.log(data);
                     console.log("error data");
-                    alert('not update please check data incorrect')
+                    alert('please check details are incorrect')
                     $(this).attr('disabled',false);
                 }
 
@@ -275,7 +275,7 @@ $(document).ready(function() {
                     $('.loader').hide();
                     if(data.redirect==true)
                     {
-                        alert("Patient Updated Successfully");
+                        alert("Patient details Updated Successfully");
                         window.location.replace("/dashboard");
                     }
                 }
