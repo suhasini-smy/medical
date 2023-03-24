@@ -168,32 +168,7 @@ UNLOCK TABLES;
 -- Table structure for table `users_old`
 --
 
-DROP TABLE IF EXISTS `users_old`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users_old` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_fname` varchar(25) NOT NULL,
-  `user_lname` varchar(100) NOT NULL,
-  `user_email` varchar(100) NOT NULL,
-  `user_password` varchar(200) NOT NULL,
-  `user_rpassword` varchar(50) NOT NULL,
-  `is_active` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `users_old`
---
-
-LOCK TABLES `users_old` WRITE;
-/*!40000 ALTER TABLE `users_old` DISABLE KEYS */;
-INSERT INTO `users_old` VALUES (1,'test','test','test@gmail.com','1231231231','1231231231',1,'2023-03-20 15:15:13',NULL),(2,'savitri','smy','savitri@gmail.com','1231231231','1231231231',1,'2023-03-20 16:25:04',NULL);
-/*!40000 ALTER TABLE `users_old` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'medical_info'
@@ -208,15 +183,22 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getActivePatientData`()
+CREATE DEFINER=`vishal`@`localhost` PROCEDURE `getActivePatientData`()
     NO SQL
-BEGIN
-
-    SET @query =  'SELECT count(*) as records FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1 and  p.is_active=1';
-
-    PREPARE STMT FROM @query;
-    EXECUTE STMT;
-    DEALLOCATE PREPARE STMT;
+BEGIN
+
+
+
+    SET @query =  'SELECT count(*) as records FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1 and  p.is_active=1';
+
+
+
+    PREPARE STMT FROM @query;
+
+    EXECUTE STMT;
+
+    DEALLOCATE PREPARE STMT;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -233,15 +215,22 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getCategoriesData`()
+CREATE DEFINER=`vishal`@`localhost` PROCEDURE `getCategoriesData`()
     NO SQL
-BEGIN
-
-SET @query =  'SELECT * FROM `categories` where is_active=1 ';
-
-    PREPARE STMT FROM @query;
-    EXECUTE STMT;
-    DEALLOCATE PREPARE STMT;
+BEGIN
+
+
+
+SET @query =  'SELECT * FROM `categories` where is_active=1 ';
+
+
+
+    PREPARE STMT FROM @query;
+
+    EXECUTE STMT;
+
+    DEALLOCATE PREPARE STMT;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -258,15 +247,22 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getInActivePatientData`()
+CREATE DEFINER=`vishal`@`localhost` PROCEDURE `getInActivePatientData`()
     NO SQL
-BEGIN
-
-    SET @query =  'SELECT count(*) as records FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1 and  p.is_active=0';
-
-    PREPARE STMT FROM @query;
-    EXECUTE STMT;
-    DEALLOCATE PREPARE STMT;
+BEGIN
+
+
+
+    SET @query =  'SELECT count(*) as records FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1 and  p.is_active=0';
+
+
+
+    PREPARE STMT FROM @query;
+
+    EXECUTE STMT;
+
+    DEALLOCATE PREPARE STMT;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -283,15 +279,22 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPatientData`()
+CREATE DEFINER=`vishal`@`localhost` PROCEDURE `getPatientData`()
     NO SQL
-BEGIN
-
-SET @query =  'SELECT p.*,TIMESTAMPDIFF(YEAR, p.patient_dob, CURDATE()) AS p_age FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1 ';
-
-    PREPARE STMT FROM @query;
-    EXECUTE STMT;
-    DEALLOCATE PREPARE STMT;
+BEGIN
+
+
+
+SET @query =  'SELECT p.*,TIMESTAMPDIFF(YEAR, p.patient_dob, CURDATE()) AS p_age FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1 ';
+
+
+
+    PREPARE STMT FROM @query;
+
+    EXECUTE STMT;
+
+    DEALLOCATE PREPARE STMT;
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -308,41 +311,113 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPateintDetails`(IN `patient_fname` VARCHAR(2050), IN `patient_lname` VARCHAR(2050), IN `patient_dob` VARCHAR(2050), IN `patient_gender` VARCHAR(2050), IN `category_id` VARCHAR(2050), IN `patient_number` VARCHAR(2050))
+CREATE DEFINER=`vishal`@`localhost` PROCEDURE `insertPateintDetails`(IN `patient_fname` VARCHAR(2050), IN `patient_lname` VARCHAR(2050), IN `patient_dob` VARCHAR(2050), IN `patient_gender` VARCHAR(2050), IN `category_id` VARCHAR(2050), IN `patient_number` VARCHAR(2050))
     NO SQL
-BEGIN
-
-SET @v_petient_fname = `patient_fname`;
-SET @v_petient_lname=patient_lname;
-SET @v_patient_dob=patient_dob;
-SET @v_category_id=category_id;
-SET @v_patient_gender=patient_gender;
-SET @v_patient_number=patient_number;
-
-        INSERT INTO categories (
-                                    patient_fname,
-                                    patient_lname,
-                                    patient_dob,
-                                    category_id,
-                                    patient_gender,
-                                    patient_number,
-                                    is_active,
-                                    created_at,
-                                    updated_at
-                                )
-                        VALUES (
-                                @v_patient_fname,
-                                @v_patient_lname,
-                                @v_patient_dob,
-                                @v_category_id,
-                                @v_patient_gender,
-                                @v_patient_number,
-                                1,
-                                CURRENT_TIMESTAMP,
-                                NULL
-                            );
+BEGIN
+
+
+
+SET @v_petient_fname = `patient_fname`;
+
+SET @v_petient_lname=patient_lname;
+
+SET @v_patient_dob=patient_dob;
+
+SET @v_category_id=category_id;
+
+SET @v_patient_gender=patient_gender;
+
+SET @v_patient_number=patient_number;
+
+
+
+        INSERT INTO categories (
+
+                                    patient_fname,
+
+                                    patient_lname,
+
+                                    patient_dob,
+
+                                    category_id,
+
+                                    patient_gender,
+
+                                    patient_number,
+
+                                    is_active,
+
+                                    created_at,
+
+                                    updated_at
+
+                                )
+
+                        VALUES (
+
+                                @v_patient_fname,
+
+                                @v_patient_lname,
+
+                                @v_patient_dob,
+
+                                @v_category_id,
+
+                                @v_patient_gender,
+
+                                @v_patient_number,
+
+                                1,
+
+                                CURRENT_TIMESTAMP,
+
+                                NULL
+
+                            );
+
 END ;;
 DELIMITER ;
+
+
+
+DELIMITER ;;
+CREATE DEFINER=`medicalinfor`@`localhost` PROCEDURE `insertPeteintDetails`(IN `patient_fname` VARCHAR(2050), IN `patient_lname` VARCHAR(2050), IN `patient_dob` VARCHAR(2050), IN `patient_gender` VARCHAR(2050), IN `category_id` VARCHAR(2050), IN `patient_number` VARCHAR(2050))
+    NO SQL
+BEGIN
+
+SET @v_patient_fname = `patient_fname`;
+SET @v_patient_lname=patient_lname;
+SET @v_patient_dob=patient_dob;
+SET @v_category_id=category_id;
+SET @v_patient_gender=patient_gender;
+SET @v_patient_number=patient_number;
+
+        INSERT INTO categories (
+                                    patient_fname,
+                                    patient_lname,
+                                    patient_dob,
+                                    category_id,
+                                    patient_gender,
+                                    patient_number,
+                                    is_active,
+                                    created_at,
+                                    updated_at
+                                )
+                        VALUES (
+                                @v_patient_fname,
+                                @v_patient_lname,
+                                @v_patient_dob,
+                                @v_category_id,
+                                @v_patient_gender,
+                                @v_patient_number,
+                                1,
+                                CURRENT_TIMESTAMP,
+                                NULL
+                            );
+END ;;
+DELIMITER ;
+
+
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
@@ -357,4 +432,7 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-23 10:34:28
+-- Dump completed on 2023-03-23 23:48:04
+
+
+
