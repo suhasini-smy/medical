@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\patientController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\MainController;
 /*
 |--------------------------------------------------------------------------
@@ -41,13 +41,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     });
 
     Route::group(['middleware' => ['auth']], function() {
-        Route::get('/dashboard',[patientController::class,'index']);
-        Route::get('/get_patient_data/{id}',[patientController::class,'show']);
-        Route::post('/get_patient_data/:id',[patientController::class,'show']);
-        Route::get('/open-patient-form',[patientController::class,'create']);
-        Route::post('/insert-patient-data',[patientController::class,'store']);
+        Route::get('/dashboard',[PatientController::class,'index']);
+        Route::get('/get_patient_data/{id}',[PatientController::class,'show']);
+        Route::post('/get_patient_data/:id',[PatientController::class,'show']);
+        Route::get('/open-patient-form',[PatientController::class,'create']);
+        Route::post('/insert-patient-data',[PatientController::class,'store']);
 
-        Route::post('/update-patient-details/{id}',[patientController::class,'update']);
+        Route::post('/update-patient-details/{id}',[PatientController::class,'update']);
         Route::get('logout', [MainController::class,'doLogout'])->name('logout');
     });
 });

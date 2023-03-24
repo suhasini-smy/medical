@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use App\Models\Patient;
 use Response;
 
-class patientController extends Controller
+class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.

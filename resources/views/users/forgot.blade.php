@@ -20,7 +20,7 @@
 
         <!-- Custom styles for this template-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <script type="text/javascript" src="{{ URL::to('js/script.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
 
 </head>
