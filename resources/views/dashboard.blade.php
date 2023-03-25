@@ -37,7 +37,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Active Patient</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['activedata'][0]->records }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['active_data'] }}</div>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     In Active Patient</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['inactivedata'][0]->records }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data['inactive_data'] }}</div>
                             </div>
                             <!--div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -91,28 +91,26 @@
                                 @endphp
                                 @foreach($data['patientdata'] as $patient)
                                 @php
+                                        if(!empty($patient->created_at))
+                                        {
+                                            $created_at =date('d-m-Y', strtotime($patient->created_at));
+                                        }else{
+                                            $created_at =$patient->created_at;
+                                        }
 
-                                                if(!empty($patient->created_at))
-                                                {
-                                                    $created_at =date('d-m-Y', strtotime($patient->created_at));
-                                                }else{
-                                                    $created_at =$patient->created_at;
-                                                }
+                                        if(!empty($patient->visited_date))
+                                        {
+                                            $visited_date =date('d-m-Y', strtotime($patient->visited_date));
+                                        }else{
+                                            $visited_date =$patient->visited_date;
+                                        }
 
-                                                if(!empty($patient->visited_date))
-                                                {
-                                                    $visited_date =date('d-m-Y', strtotime($patient->visited_date));
-                                                }else{
-                                                    $visited_date =$patient->visited_date;
-                                                }
-
-                                                if(!empty($patient->next_visit_date))
-                                                {
-                                                    $next_visit_date =date('d-m-Y', strtotime($patient->next_visit_date));
-                                                }else{
-                                                    $next_visit_date =$patient->next_visit_date;
-                                                }
-
+                                        if(!empty($patient->next_visit_date))
+                                        {
+                                            $next_visit_date =date('d-m-Y', strtotime($patient->next_visit_date));
+                                        }else{
+                                            $next_visit_date =$patient->next_visit_date;
+                                        }
                                 @endphp
                                 <tr>
                                    <td>{{$i}}</td>

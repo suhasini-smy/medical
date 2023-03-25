@@ -18,18 +18,15 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
-        $procedure = "getPatientData()";
-        $data['patientdata']  = CommonController::callMasterProcedure($procedure);
-
-        $procedure = "getActivePatientData()";
-        $data['activedata']  = CommonController::callMasterProcedure($procedure);
-
-        $procedure = "getInActivePatientData()";
-        $data['inactivedata']  = CommonController::callMasterProcedure($procedure);
-
-        $data['total_patient'] = $data['activedata'][0]->records+$data['inactivedata'][0]->records;
-
+        $patient_data =   DB::select(DB::raw("SELECT p.*,TIMESTAMPDIFF(YEAR, p.patient_dob, CURDATE()) AS p_age FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1"));
+        $data['patientdata']  = $patient_data;
+        $activedata = Patient::where('is_active','1')->get();
+        $inactivedata = Patient::where('is_active','0')->get();
+        $active_data   = $activedata->toArray();
+        $inactive_data = $inactivedata->toArray();
+        $data['total_patient'] = count($active_data)+count($inactive_data);
+        $data['active_data']=count($active_data);
+        $data['inactive_data']=count($inactive_data);
         return view('dashboard',compact("data"));
     }
 

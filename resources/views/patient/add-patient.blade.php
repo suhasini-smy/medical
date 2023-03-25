@@ -13,7 +13,6 @@
 
                 <div class="loader" style="display:none">Please Wait ,LOADING...</div>
                 <div id="msg" class="msg"></div>
-                @include('flash-message')
 
                 <div class="card-body">
                     <div class="table-responsive">
