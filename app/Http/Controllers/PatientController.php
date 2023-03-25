@@ -38,9 +38,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
-        $procedure = "getCategoriesData()";
-        $categories  = CommonController::callMasterProcedure($procedure);
+        $categories_data =   DB::select(DB::raw("SELECT * FROM `categories` where is_active=1"));
+        $categories  = $categories_data;
         return view('patient.add-patient',compact("categories"));
     }
 
