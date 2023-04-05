@@ -41,17 +41,8 @@
                             <option value="1">Male</option>
                             <option value="2">Female</option>
                             </select>
+                        </div>
 
-                        </div>
-                        <div class="form-group">
-                            <label class="mandatory">Patient Category*</label>
-                            <select class="form-select form-control form-control-brdr" name="category_id" id="category_id">
-                            <option value="">Select category</option>
-                                   @foreach($categories as $data)
-                                      <option value="{{ $data->category_id }}">{{ $data->category_name }}</option>
-                                    @endforeach
-                            </select>
-                        </div>
                         <div class="form-group">
                             <label class="mandatory">Patient Phone Number*</label>
                             <input type="text" class="form-control form-control-brdr"  name="patient_number" id="patient_number" placeholder="Enter Phone Number">

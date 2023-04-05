@@ -34,3 +34,12 @@
     margin-left: 3rem;
     margin-bottom: 1rem;
 }
+
+
+.form-control{
+    border: 1px solid #9a9ba1 !important;
+}
+
+.wd{
+    /*width: 44% !important;*/
+}

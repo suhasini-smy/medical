@@ -18,7 +18,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patient_data =   DB::select(DB::raw("SELECT p.*,TIMESTAMPDIFF(YEAR, p.patient_dob, CURDATE()) AS p_age FROM `patient` as p inner join categories as c on p.category_id=c.category_id where c.is_active=1"));
+        $patient_data =   DB::select(DB::raw("SELECT p.*,TIMESTAMPDIFF(YEAR, p.patient_dob, CURDATE()) AS p_age FROM `patient` as p"));
         $data['patientdata']  = $patient_data;
         $activedata = Patient::where('is_active','1')->get();
         $inactivedata = Patient::where('is_active','0')->get();
@@ -27,6 +27,7 @@ class PatientController extends Controller
         $data['total_patient'] = count($active_data)+count($inactive_data);
         $data['active_data']=count($active_data);
         $data['inactive_data']=count($inactive_data);
+
         return view('dashboard',compact("data"));
     }
 
@@ -39,8 +40,8 @@ class PatientController extends Controller
     public function create()
     {
         $categories_data =   DB::select(DB::raw("SELECT * FROM `categories` where is_active=1"));
-        $categories  = $categories_data;
-        return view('patient.add-patient',compact("categories"));
+        //$categories  = $categories_data;
+        return view('patient.add-patient');
     }
 
     /**
@@ -57,7 +58,7 @@ class PatientController extends Controller
                                             'patient_lname' => 'required|max:25',
                                             'patient_dob' => 'required|date_format:d-m-Y|before:today',
                                             'patient_gender'=>'required',
-                                            'category_id'=>'required',
+                                           // 'category_id'=>'required',
                                             'patient_number'=>'required|unique:patient|numeric|digits_between:9,11',
                                         ],
                                         [
@@ -65,7 +66,7 @@ class PatientController extends Controller
                                             'patient_lname.required' => 'The patient lname field is required.',
                                             'patient_dob.required' => 'The patient dob field is required.',
                                             'patient_gender.required' => 'The patient gender field is required.',
-                                            'category_id.required' => 'The patient category Id field is required.',
+                                          //  'category_id.required' => 'The patient category Id field is required.',
                                             'patient_number.required' => 'The patient number field is required.',
                                         ]);
 
@@ -74,14 +75,15 @@ class PatientController extends Controller
         $patient_dob = $request->patient_dob;
         $dob = date('Y-m-d H:i:s', strtotime($patient_dob));
         $patient_gender = $request->patient_gender;
-        $category_id = $request->category_id;
+        //$category_id = $request->category_id;
+        $patient_eid = rand()+1;
         $patient_number = $request->patient_number;
         $created_at = date('Y-m-d H:i:s');
       //  $updated_at=NULL;
         $visited_date= date('Y-m-d H:i:s');
         $is_active=1;
 
-        $data=array('patient_fname'=>$patient_fname,"patient_lname"=>$patient_lname,"patient_dob"=>$dob,"patient_gender"=>$patient_gender,"category_id"=>$category_id,"patient_number"=>$patient_number,"is_active"=>$is_active,"created_at"=>$created_at,"visited_date"=>$visited_date);
+        $data=array('patient_fname'=>$patient_fname,"patient_lname"=>$patient_lname,"patient_dob"=>$dob,"patient_gender"=>$patient_gender,"patient_eid"=>$patient_eid,"patient_number"=>$patient_number,"is_active"=>$is_active,"created_at"=>$created_at,"visited_date"=>$visited_date);
         $get = DB::table('patient')->insert($data);
 
         if($get){

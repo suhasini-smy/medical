@@ -76,6 +76,7 @@
                                 <tr>
                                     <th>SL.No</th>
                                     <th>Name</th>
+                                    <th>Employee ID</th>
                                     <th>Age</th>
                                     <th>Mobile Number</th>
                                     <th>Gender</th>
@@ -87,34 +88,34 @@
                             </thead>
                             <tbody>
                                 @php
-                                $i=1;
+                                  $i=1;
                                 @endphp
                                 @foreach($data['patientdata'] as $patient)
                                 @php
-                                        if(!empty($patient->created_at))
-                                        {
-                                            $created_at =date('d-m-Y', strtotime($patient->created_at));
-                                        }else{
-                                            $created_at =$patient->created_at;
-                                        }
+                                    if(!empty($patient->created_at))
+                                    {
+                                        $created_at =date('d-m-Y', strtotime($patient->created_at));
+                                    }else{
+                                        $created_at =$patient->created_at;
+                                    }
+                                    if(!empty($patient->visited_date))
+                                    {
+                                        $visited_date =date('d-m-Y', strtotime($patient->visited_date));
+                                    }else{
+                                        $visited_date =$patient->visited_date;
+                                    }
 
-                                        if(!empty($patient->visited_date))
-                                        {
-                                            $visited_date =date('d-m-Y', strtotime($patient->visited_date));
-                                        }else{
-                                            $visited_date =$patient->visited_date;
-                                        }
-
-                                        if(!empty($patient->next_visit_date))
-                                        {
-                                            $next_visit_date =date('d-m-Y', strtotime($patient->next_visit_date));
-                                        }else{
-                                            $next_visit_date =$patient->next_visit_date;
-                                        }
+                                    if(!empty($patient->next_visit_date))
+                                    {
+                                        $next_visit_date =date('d-m-Y', strtotime($patient->next_visit_date));
+                                    }else{
+                                        $next_visit_date =$patient->next_visit_date;
+                                    }
                                 @endphp
                                 <tr>
                                    <td>{{$i}}</td>
                                     <td>{{$patient->patient_fname}} - {{$patient->patient_lname}}</td>
+                                    <td><a href="#" data-toggle="modal" data-target="#myModal">{{$patient->patient_eid}}</a></td>
                                     <td>{{$patient->p_age}}</td>
                                     <td>{{$patient->patient_number}}</td>
                                     @if($patient->patient_gender =='1')
@@ -147,15 +148,155 @@
 
      @include('patient/update-model')
 
-
     </div>
-    @include('include/footer')
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">Patient Details</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+            <form action="/action_page.php">
+                <div class="form-group form-inline">
+                    <label for="email">Height(cms):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="email">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="pwd">Weight(Kg):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="pwd">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="email">BMI(kg/m2):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="email">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="email">Blood Pressure (mmHg) :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="email">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="email">Blood Suger (mg/DL) :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="email">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="email">HDL (mg/DL):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="email">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="email">Triglceride(mg/dl):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control wd" id="email">
+                </div>
+                <div class="form-group form-inline">
+                    <label for="exampleInputEmail1">HbA1C(%):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="email" class="form-control wd" id="exampleInputEmail1" placeholder="">
+                </div>
+
+                <div class="form-inline form-group">
+                    <label class="control-label">Past Illness(%):</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="1" name="past_illness" id="past_illness_yes"/>
+                        Yes
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="2" name="past_illness" id="past_illness_no"/>
+                        No
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio" id="div1" style="display:none">
+                        <input type="text" class="form-control input-sm"/>
+                    </label>
+                </div>
+
+                <div class="form-inline form-group">
+                    <label class="control-label">Asthma:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="1" name="asthma" id="asthma_yes"/>
+                        Yes
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="2" name="asthma" id="asthma_no"/>
+                        No
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio" id="div2" style="display:none">
+                        <input type="text" class="form-control input-sm"/>
+                    </label>
+
+                </div>
+
+                <div class="form-inline form-group">
+                    <label class="control-label">Hypertension:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="1" name="hypertension" id="hypertension_yes"/>
+                        Yes
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="2" name="hypertension" id="hypertension_no"/>
+                        No
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio" id="div3" style="display:none">
+                        <input type="text" class="form-control input-sm"/>
+                    </label>
+
+                </div>
+                <div class="form-inline form-group">
+                    <label class="control-label">High Cholestrol:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="1" name="high_chelestrol" id="high_chelestrol_yes"/>
+                        Yes
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="2" name="high_chelestrol" id="high_chelestrol_no"/>
+                        No
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio" id="div4" style="display:none">
+                        <input type="text" class="form-control input-sm"/>
+                    </label>
+                </div>
+
+                <div class="form-inline form-group">
+                    <label class="control-label">Heart Diseas:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="1" name="heart_deases" id="heart_deaseas_yes"/>
+                        Yes
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        <input type="radio" value="2" name="heart_deases" id="heart_deaseas_no"/>
+                        No
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio" id="div5" style="display:none">
+                        <input type="text" class="form-control input-sm"/>
+                    </label>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+
+  </div>
+</div>
+
+@include('include/footer')
     <!-- Page level plugins -->
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
-
     <script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
-
     <script src="js/demo/datatables-demo.js"></script>
     <script type="text/javascript">
         function exportexcel() {
@@ -166,5 +307,6 @@
                 });
             }
     </script>
+
 
 @endauth
